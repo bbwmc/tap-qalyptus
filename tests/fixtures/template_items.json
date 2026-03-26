@@ -1,0 +1,37 @@
+{
+  "data": {
+    "nodes": [
+      {
+        "name": "Table",
+        "type": "table",
+        "icon": "table.svg",
+        "objects": [
+          {
+            "id": "object-parent-1",
+            "itemID": "item-parent-1",
+            "title": "Overview Sheet",
+            "type": "Sheet",
+            "objects": [
+              {
+                "id": "object-child-1",
+                "itemID": "item-child-1",
+                "title": "Revenue Table",
+                "type": "StraightTable",
+                "objects": null,
+                "columns": [
+                  {
+                    "id": "column-1",
+                    "name": "Revenue"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "isSuccess": true,
+  "error": null,
+  "errorDetails": null
+}

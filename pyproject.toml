@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tap-qalyptus"
+version = "0.1.0"
+description = "Singer tap for the Qalyptus API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "singer-sdk>=0.53,<0.54",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+]
+
+[project.scripts]
+tap-qalyptus = "tap_qalyptus.tap:TapQalyptus.cli"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["tap_qalyptus*"]

@@ -1,0 +1,30 @@
+{
+  "data": {
+    "id": "task-report-1",
+    "reportID": "report-1",
+    "name": "Weekly Task Report",
+    "description": "",
+    "type": "Excel",
+    "outputFormats": ["Xlsx", "Csv"],
+    "isIteration": false,
+    "format": "Xlsx",
+    "emailEmbedment": false,
+    "emailAttachment": true,
+    "filters": [
+      {
+        "id": "filter-1",
+        "name": "Current week",
+        "order": 1
+      }
+    ],
+    "conditions": [],
+    "storageServices": [],
+    "separatorOptions": {
+      "numberDecimalSeparator": ",",
+      "numberGroupSeparator": ","
+    }
+  },
+  "isSuccess": true,
+  "error": null,
+  "errorDetails": null
+}

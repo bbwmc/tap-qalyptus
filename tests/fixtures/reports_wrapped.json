@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 101,
+      "name": "Operations Summary",
+      "filters": [
+        {
+          "id": 7,
+          "label": "Active only"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "name": "Finance Snapshot",
+      "filters": []
+    }
+  ]
+}
