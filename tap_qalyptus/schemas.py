@@ -193,7 +193,7 @@ TASK_TRIGGERS_SCHEMA = build_schema(
         "nextExecutionDate": STRING,
         "appId": STRING,
         "eventType": STRING,
-        "qlikEvent": OBJECT,
+        "qlikEvent": STRING,
     }
 )
 
