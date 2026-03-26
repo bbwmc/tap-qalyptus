@@ -7,7 +7,7 @@ name = "tap-qalyptus"
 version = "0.1.0"
 description = "Singer tap for the Qalyptus API"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
   "singer-sdk>=0.53,<0.54",
 ]
