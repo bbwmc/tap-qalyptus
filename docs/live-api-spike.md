@@ -39,7 +39,7 @@ These notes capture the first credentialed API probe against `bedsandbars.qalypt
 - `task_reports` records include both `id` and `reportID`.
 - `task_report` detail records preserve nested arrays like `filters`, `conditions`, and `storageServices`.
 - `report_filters` is not a link table response; it returns full filter objects for a report.
-- `report_objects` should be derived by flattening the `template-items` object tree rather than using the top-level node wrappers as rows.
+- `report_objects` should preserve the `data.nodes[*]` rows with their nested `objects` payload when compatibility with the historical raw table matters.
 
 ## Still pending live verification
 
@@ -51,4 +51,4 @@ These notes capture the first credentialed API probe against `bedsandbars.qalypt
 
 - Full refresh is the safest initial replication strategy
 - Payloads may contain nested JSON which should be preserved as-is
-- `report_objects` rows should carry `report_id`, `parent_object_id`, and node metadata after flattening
+- `report_objects` is currently modeled for raw-table compatibility as `report_id`, `name`, `type`, `icon`, and nested `objects`

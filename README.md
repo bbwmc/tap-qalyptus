@@ -72,7 +72,8 @@ pytest
 - Top-level endpoints are treated as simple GET collection endpoints.
 - The live API wraps responses as `data`, `isSuccess`, `error`, and `errorDetails`.
 - `task_report` comes from `/tasks/{task_id}/reports/{task_report_id}` and preserves nested `filters`.
-- `report_objects` flattens `template-items` from `data.nodes[*].objects` into one row per object and carries `report_id`, `parent_object_id`, and node metadata.
+- Stream schemas now declare the business fields needed for Postgres targets to materialize the raw payload columns.
+- `report_objects` loads one row per template node, preserving the nested `objects` tree in JSON to stay close to the historical Airbyte shape.
 - Pagination is disabled for now until the live API proves the actual mechanism.
 
 ## Remote Meltano integration

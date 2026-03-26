@@ -134,6 +134,23 @@ def test_reports_stream_parses_wrapped_payloads():
     assert records[0]["filters"][0]["label"] == "Active only"
 
 
+def test_discovery_schemas_include_business_fields():
+    tap = TapQalyptus(
+        config={
+            "api_url": "https://bedsandbars.qalyptus.net",
+            "api_key": "test-token",
+        }
+    )
+
+    users_schema = UsersStream(tap).schema["properties"]
+    task_report_schema = TaskReportStream(tap).schema["properties"]
+    report_objects_schema = ReportObjectsStream(tap).schema["properties"]
+
+    assert {"id", "name", "email", "groups", "organizationRoles"} <= set(users_schema)
+    assert {"task_id", "id", "filters", "reportID", "separatorOptions"} <= set(task_report_schema)
+    assert {"report_id", "name", "type", "icon", "objects"} <= set(report_objects_schema)
+
+
 def test_task_report_stream_parses_detail_payload_and_context_fields():
     routes = {"/api/v1/tasks/task-1/reports/task-report-1": _fixture("task_report_detail.json")}
     with _serve_fixture_api(routes=routes) as api_url:
@@ -152,7 +169,6 @@ def test_task_report_stream_parses_detail_payload_and_context_fields():
 
     assert len(records) == 1
     assert records[0]["task_id"] == "task-1"
-    assert records[0]["task_report_id"] == "task-report-1"
     assert records[0]["filters"][0]["id"] == "filter-1"
 
 
@@ -168,9 +184,9 @@ def test_report_objects_stream_flattens_nested_template_items():
 
         records = list(ReportObjectsStream(tap).get_records({"report_id": "report-1"}))
 
-    assert [record["id"] for record in records] == ["object-parent-1", "object-child-1"]
-    assert all(record["report_id"] == "report-1" for record in records)
-    assert records[0]["parent_object_id"] is None
-    assert records[0]["node_name"] == "Table"
-    assert records[1]["parent_object_id"] == "object-parent-1"
-    assert records[1]["object_depth"] == 1
+    assert len(records) == 1
+    assert records[0]["report_id"] == "report-1"
+    assert records[0]["name"] == "Table"
+    assert records[0]["type"] == "table"
+    assert records[0]["icon"] == "table.svg"
+    assert records[0]["objects"][0]["id"] == "object-parent-1"

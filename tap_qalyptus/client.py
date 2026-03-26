@@ -140,26 +140,28 @@ class QalyptusStream(RESTStream):
 class QalyptusTopLevelStream(QalyptusStream):
     """Base stream for top-level collection endpoints."""
 
+    key_properties: tuple[str, ...] = ("id",)
+    record_schema: dict[str, Any] | None = None
+
     def __init__(self, tap, schema=None, name=None):
-        super().__init__(tap=tap, schema=schema or _object_schema("id"), name=name)
-        self._primary_keys = ["id"]
+        super().__init__(
+            tap=tap,
+            schema=schema or self.record_schema or _object_schema(*self.key_properties),
+            name=name,
+        )
+        self._primary_keys = list(self.key_properties)
 
 
 class QalyptusChildStream(QalyptusStream):
     """Base stream for child endpoints with parent context fields."""
 
     key_properties: tuple[str, ...] = ("id",)
-    schema_identifier_fields: tuple[str, ...] = ("id",)
-    schema_extra_properties: dict[str, Any] = {}
+    record_schema: dict[str, Any] | None = None
 
     def __init__(self, tap, schema=None, name=None):
         super().__init__(
             tap=tap,
-            schema=schema
-            or _object_schema(
-                *self.schema_identifier_fields,
-                extra_properties=self.schema_extra_properties,
-            ),
+            schema=schema or self.record_schema or _object_schema(*self.key_properties),
             name=name,
         )
         self._primary_keys = list(self.key_properties)
